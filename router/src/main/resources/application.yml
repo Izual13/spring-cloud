@@ -5,17 +5,11 @@ eureka:
     health-check-url: http://${spring.cloud.client.ipAddress}:${server.port}/health
     home-page-url: http://${spring.cloud.client.ipAddress}:${server.port}
 
-endpoints:
-  restart:
-    enabled: true
-  shutdown:
-    enabled: true
-  health:
-    sensitive: false
-
 zuul:
   routes:
-    eureka-client: /r-eureka-client/**
+    eureka-client:
+      path: /endpoint1/**
+      serviseId: eureka-client
 
 info:
   description: router
