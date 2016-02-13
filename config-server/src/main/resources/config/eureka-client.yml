@@ -1,0 +1,14 @@
+eureka:
+  instance:
+    instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    status-page-url: http://${spring.cloud.client.ipAddress}:${server.port}/
+    health-check-url: http://${spring.cloud.client.ipAddress}:${server.port}/health
+    home-page-url: http://${spring.cloud.client.ipAddress}:${server.port}
+    non-secure-port: ${server.port}
+
+info:
+  description: eureka-client
+  version: 1.0
+
+server:
+  port: 8081
