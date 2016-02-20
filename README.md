@@ -4,6 +4,6 @@ run:
  - eureka-server
  - config-server
  - eureka-client
- - router
+ - router - revers proxy
 
 http://localhost:8082/endpoint1/redirect
