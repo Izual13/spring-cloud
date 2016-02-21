@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hello WebSocket</title>
+    <script src="sockjs-0.3.4.js"></script>
+    <script src="stomp.js"></script>
+    <script type="text/javascript">
+        var stompClient = null;
+
+        function setConnected(connected) {
+            document.getElementById('connect').disabled = connected;
+            document.getElementById('disconnect').disabled = !connected;
+        }
+
+        function connect() {
+            var socket = new SockJS('/socket');
+            stompClient = Stomp.over(socket);
+            stompClient.connect({}, function (frame) {
+                setConnected(true);
+                console.log('Connected: ' + frame);
+                stompClient.subscribe('/scheduler', function (message) {
+                    document.getElementById('scheduler').innerHTML = message.body;
+                });
+                stompClient.subscribe('/topic', function (message) {
+                    document.getElementById('topic').innerHTML = message.body;
+                });
+            });
+        }
+
+        function disconnect() {
+            stompClient.disconnect();
+            setConnected(false);
+            console.log("Disconnected");
+        }
+        connect();
+    </script>
+</head>
+<body>
+<div>
+    <div>
+        <a href="http://localhost:8080">test</a>
+        <button id="connect" onclick="connect();">Connect</button>
+        <button id="disconnect" disabled="disabled" onclick="disconnect();">Disconnect</button>
+    </div>
+    <p id="scheduler"></p>
+    <p id="topic"></p>
+</div>
+</body>
+</html>

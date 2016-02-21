@@ -15,5 +15,7 @@
         <module>/eureka-server</module>
         <module>/router</module>
         <module>/config-server</module>
+        <module>/websocket-server</module>
+        <module>/websocket-server-without-config-server</module>
     </modules>
 </project>
