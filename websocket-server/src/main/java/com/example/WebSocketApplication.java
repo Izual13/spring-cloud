@@ -9,22 +9,15 @@ import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.core.MessageSendingOperations;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
-import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.socket.config.annotation.AbstractWebSocketMessageBrokerConfigurer;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
-
-import java.math.BigInteger;
-import java.security.SecureRandom;
 
 @SpringBootApplication
 @EnableDiscoveryClient
@@ -37,7 +30,6 @@ public class WebSocketApplication {
 
     @Configuration
     @EnableWebSocketMessageBroker
-    @EnableScheduling
     static class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
 
         @Override
@@ -59,10 +51,16 @@ public class WebSocketApplication {
         @Autowired
         MessagingService messagingService;
 
-        @RequestMapping("/start")
-        public String start() {
-            messagingService.loginUser();
-            return "start";
+        @RequestMapping(value = "/loginUser/{userName}", method = RequestMethod.POST)
+        public String loginUser(@PathVariable("userName") String userName) {
+            messagingService.loginUser(userName);
+            return "ok";
+        }
+
+        @RequestMapping(value = "/scheduler", method = RequestMethod.POST)
+        public String scheduler(@RequestBody String prime) {
+            messagingService.scheduler(prime);
+            return "ok";
         }
     }
 
@@ -101,17 +99,15 @@ public class WebSocketApplication {
         @Autowired
         private MessageSendingOperations<String> messagingTemplate;
 
-        public void loginUser() {
+        public void loginUser(String userName) {
             System.out.println("loginUser");
             String destination = "/topic";
-            this.messagingTemplate.convertAndSend(destination, "ping");
+            this.messagingTemplate.convertAndSend(destination, userName);
         }
 
-        @Scheduled(fixedDelay = 1000)
-        public void scheduler() {
+        public void scheduler(String prime) {
             String destination = "/scheduler";
-            BigInteger prime = BigInteger.probablePrime(512, new SecureRandom());
-            this.messagingTemplate.convertAndSend(destination, prime.toString());
+            this.messagingTemplate.convertAndSend(destination, prime);
         }
     }
 }

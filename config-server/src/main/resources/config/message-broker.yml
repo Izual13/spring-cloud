@@ -7,8 +7,8 @@ eureka:
     non-secure-port: ${server.port}
 
 info:
-  description: websocket-server
+  description: message-broker
   version: 1.0
 
 server:
-  port: 8111
+  port: 8084
