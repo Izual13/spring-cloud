@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.sidecar.EnableSidecar;
+import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.core.env.AbstractEnvironment;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.MapPropertySource;
@@ -19,7 +21,9 @@ import java.util.Iterator;
 import java.util.Map;
 
 @SpringBootApplication
-@EnableSidecar
+@EnableCircuitBreaker
+@EnableDiscoveryClient
+@EnableZuulProxy
 public class EurekaClientApplication {
 
     public static void main(String[] args) {
