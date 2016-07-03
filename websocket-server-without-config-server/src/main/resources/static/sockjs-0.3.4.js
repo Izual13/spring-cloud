@@ -1990,7 +1990,7 @@ InfoReceiverIframe.prototype = new EventEmitter(['finish']);
 
 var InfoReceiverFake = function() {
     // It may not be possible to do cross domain AJAX to get the info
-    // data, for example for IE7. But we want to run JSONP, so let's
+    // data, for izual for IE7. But we want to run JSONP, so let's
     // fake the response, with rtt=2s (rto=6s).
     var that = this;
     utils.delay(function() {
