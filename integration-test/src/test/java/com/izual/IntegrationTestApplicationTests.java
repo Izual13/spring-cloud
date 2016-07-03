@@ -11,6 +11,7 @@ public class IntegrationTestApplicationTests {
 
 	@Test
 	public void contextLoads() {
+		System.out.println("test jenkins");
 	}
 
 }
