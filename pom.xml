@@ -30,6 +30,7 @@
         <module>/message-broker</module>
         <module>/websocket-server</module>
         <module>/websocket-server-without-config-server</module>
+        <module>/integration-test</module>
     </modules>
 
     <repositories>
