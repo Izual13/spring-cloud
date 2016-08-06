@@ -1,5 +1,7 @@
 FROM fedora
 MAINTAINER Izual
 
-RUN yum -y update && yum clean all
-RUN yum -y install java && yum clean all
+RUN dnf -y update && dnf clean all
+RUN dnf -y install java && dnf clean all
+
+
