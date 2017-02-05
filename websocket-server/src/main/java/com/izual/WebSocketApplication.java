@@ -21,7 +21,6 @@ import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableZuulProxy
 public class WebSocketApplication {
 
     public static void main(String[] args) {
