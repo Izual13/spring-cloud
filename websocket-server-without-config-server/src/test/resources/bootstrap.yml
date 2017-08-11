@@ -1,0 +1,10 @@
+eureka:
+  instance:
+    instanceId: ${spring.application.name}:123
+spring:
+  cloud:
+    config:
+      enabled: false
+    client:
+      hostname: localhost
+      ipAddress: 127.0.0.1
